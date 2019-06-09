@@ -1,21 +1,26 @@
-variable "vpc_id" {
+variable "vpc_peering_name" {
   type        = string
-  description = "Source VPC Id"
+  description = "VPC Peering Connection name"
 }
 
-variable "peer_vpc_id" {
+variable "requester_vpc_id" {
   type        = string
-  description = "Peer VPC Id"
+  description = "Requester VPC id"
 }
 
-variable "peer_account_id" {
+variable "accepter_vpc_id" {
   type        = string
-  description = "Peer VPC Account Id"
+  description = "Accepter VPC id"
 }
 
-variable "peer_region" {
+variable "accepter_account_id" {
   type        = string
-  description = "Peer VPC region"
+  description = "Accepter VPC account id"
+}
+
+variable "accepter_vpc_region" {
+  type        = string
+  description = "Accepter VPC region"
 }
 
 variable "allow_remote_vpc_dns_resolution" {
@@ -24,6 +29,18 @@ variable "allow_remote_vpc_dns_resolution" {
   default     = true
 }
 
+variable "add_route_table_entries" {
+  type        = bool
+  description = "Automatically add routes for the requester and accepter vpcs to route tables"
+  default     = true
+}
 
+variable "requester_route_table_name_prefix" {
+  type        = list(string)
+  description = "List of prefixes used to find route tables in the requester vpc that will automatically have routes added. Prefixes are searched against tag:Name, wildcards can be used to select multiple route tables"
+}
 
-
+variable "accepter_route_table_name_prefix" {
+  type        = list(string)
+  description = "List of prefixes used to find route tables in the accepter vpc that will automatically have routes added. Prefixes are searched against tag:Name, wildcards can be used to select multiple route tables"
+}
