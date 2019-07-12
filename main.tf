@@ -24,6 +24,8 @@ resource "aws_vpc_peering_connection_accepter" "accepter" {
 }
 
 resource "aws_vpc_peering_connection_options" "requester" {
+  #https://github.com/terraform-providers/terraform-provider-aws/issues/6730
+  count = data.aws_region.current.name == var.accepter_vpc_region ? 1 : 0
   provider = "aws.requester"
 
   vpc_peering_connection_id = aws_vpc_peering_connection_accepter.accepter.id
@@ -34,6 +36,8 @@ resource "aws_vpc_peering_connection_options" "requester" {
 }
 
 resource "aws_vpc_peering_connection_options" "accepter" {
+  #https://github.com/terraform-providers/terraform-provider-aws/issues/6730
+  count = data.aws_region.current.name == var.accepter_vpc_region ? 1 : 0
   provider = "aws.accepter"
 
   vpc_peering_connection_id = aws_vpc_peering_connection_accepter.accepter.id
