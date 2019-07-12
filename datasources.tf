@@ -32,4 +32,6 @@ data "aws_vpc" "accepter" {
   id = var.accepter_vpc_id
 }
 
-data "aws_region" "current" {}
+data "aws_region" "current" {
+  provider = "aws.requester"
+}

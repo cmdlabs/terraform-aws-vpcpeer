@@ -5,7 +5,3 @@ provider "aws" {
 provider "aws" {
   alias = "accepter"
 }
-
-provider "aws" {
-
-}
